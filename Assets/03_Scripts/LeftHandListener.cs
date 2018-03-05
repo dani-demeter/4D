@@ -5,6 +5,7 @@ namespace VRTK.Examples
     public class LeftHandListener : MonoBehaviour
     {
 				public GameManagerScript gm;
+        public Grapher grapher;
         private void Start()
         {
             if (GetComponent<VRTK_ControllerEvents>() == null)
@@ -74,7 +75,7 @@ namespace VRTK.Examples
         private void DebugLogger(uint index, string button, string action, ControllerInteractionEventArgs e)
         {
             // VRTK_Logger.Info("Controller on index '" + index + "' " + button + " has been " + action
-            //         + " with a pressure of " + e.buttonPressure + " / trackpad axis at: " + e.touchpadAxis + " (" + e.touchpadAngle + " degrees)");
+                    // + " with a pressure of " + e.buttonPressure + " / trackpad axis at: " + e.touchpadAxis + " (" + e.touchpadAngle + " degrees)");
         }
 
         private void DoTriggerPressed(object sender, ControllerInteractionEventArgs e)
@@ -197,11 +198,13 @@ namespace VRTK.Examples
         private void DoButtonOnePressed(object sender, ControllerInteractionEventArgs e)
         {
             DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "BUTTON ONE", "pressed down", e);
+            grapher.ChangeA(1f);
         }
 
         private void DoButtonOneReleased(object sender, ControllerInteractionEventArgs e)
         {
             DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "BUTTON ONE", "released", e);
+            grapher.ChangeA(0f);
         }
 
         private void DoButtonOneTouchStart(object sender, ControllerInteractionEventArgs e)
@@ -217,11 +220,13 @@ namespace VRTK.Examples
         private void DoButtonTwoPressed(object sender, ControllerInteractionEventArgs e)
         {
             DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "BUTTON TWO", "pressed down", e);
+            grapher.ChangeA(-1f);
         }
 
         private void DoButtonTwoReleased(object sender, ControllerInteractionEventArgs e)
         {
             DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "BUTTON TWO", "released", e);
+            grapher.ChangeA(0f);
         }
 
         private void DoButtonTwoTouchStart(object sender, ControllerInteractionEventArgs e)

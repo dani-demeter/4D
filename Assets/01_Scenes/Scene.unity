@@ -429,6 +429,11 @@ Prefab:
       propertyPath: grapher
       value: 
       objectReference: {fileID: 1670805603}
+    - target: {fileID: 114676252143660510, guid: b2eb47ca2b7260a4fb6d211438a21537,
+        type: 2}
+      propertyPath: grapher
+      value: 
+      objectReference: {fileID: 1670805603}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b2eb47ca2b7260a4fb6d211438a21537, type: 2}
   m_IsPrefabParent: 0

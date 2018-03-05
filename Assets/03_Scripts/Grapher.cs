@@ -23,6 +23,7 @@ public class Grapher : MonoBehaviour{
 	private GameObject[,] points;
 	private float scale=1f;
 	private float a = Mathf.PI/4;
+	private float da = 0f;
 	// private float a = 0f;
 	float fx (float s, float t){
 		// return (1.25f+0.5f*Mathf.Cos(s))*Mathf.Cos(t);
@@ -54,6 +55,24 @@ public class Grapher : MonoBehaviour{
 		}
 		ReDrawLines();
 	}
+	public void ChangeA(float d){
+		da = d;
+	}
+	void UpdatePoints(){
+		for (int s = 0; s < Sres; s++){
+			for (int t = 0; t < Tres; t++){
+				GameObject p = points[s, t];
+				float cS = ((float)((maxS-minS) * s) / Sres) + minS;
+				float cT = ((float)((maxT-minT) * t) / Tres) + minT;
+				float x = (1/(Mathf.Sqrt(2)-fv(cS, cT)))*fx(cS, cT);
+				float y = (1/(Mathf.Sqrt(2)-fv(cS, cT)))*fy(cS, cT);
+				float z = (1/(Mathf.Sqrt(2)-fv(cS, cT)))*fu(cS, cT);
+
+				p.transform.localPosition = new Vector3 (x, y, z);
+			}
+		}
+		ReDrawLines();
+	}
 	void ReDrawLines(){
 		for(int i=0; i<Sres; i++){
 			LineRenderer lr = lrs[i];
@@ -81,6 +100,16 @@ public class Grapher : MonoBehaviour{
 	void Update(){
 		for(int i=0; i<lrs.Count; i++){
 			lrs[i].startWidth = scale*0.05f;
+		}
+	}
+	void FixedUpdate(){
+		if(da!=0){
+			if(da>0){
+				a += 0.01f;
+			}else{
+				a -= 0.01f;
+			}
+			UpdatePoints();
 		}
 	}
 	void Start (){
