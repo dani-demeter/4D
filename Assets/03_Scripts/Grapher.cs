@@ -21,22 +21,23 @@ public class Grapher : MonoBehaviour{
 
 	private List<LineRenderer> lrs = new List<LineRenderer>();
 	private GameObject[,] points;
-	private float scale=1;
-
+	private float scale=1f;
+	private float a = Mathf.PI/4;
+	// private float a = 0f;
 	float fx (float s, float t){
-		return (1.25f+0.5f*Mathf.Cos(s))*Mathf.Cos(t);
-		// return Mathf.Sin(s)*Mathf.Cos(t);
+		// return (1.25f+0.5f*Mathf.Cos(s))*Mathf.Cos(t);
+		return Mathf.Cos(s);
 	}
 	float fy (float s, float t){
-		return (1.25f+0.5f*Mathf.Cos(s))*Mathf.Sin(t);
-		// return Mathf.Sin(s)*Mathf.Sin(t);
+		// return (1.25f+0.5f*Mathf.Cos(s))*Mathf.Sin(t);
+		return Mathf.Cos(a)*Mathf.Sin(s)+Mathf.Sin(a)*Mathf.Sin(t);
 	}
 	float fu (float s, float t){
-		return 0.5f*Mathf.Sin(s);
-		// return Mathf.Cos(s);
+		// return 0.5f*Mathf.Sin(s);
+		return Mathf.Cos(t);
 	}
 	float fv (float s, float t){
-		return Mathf.Sin (Mathf.Sqrt(s*s+t*t));
+		return -Mathf.Sin(a)*Mathf.Sin(s)+Mathf.Cos(a)*Mathf.Sin(t);
 	}
 	public void Invert(){
 		Vector3 o = new Vector3(0,3,0);
@@ -54,10 +55,7 @@ public class Grapher : MonoBehaviour{
 		ReDrawLines();
 	}
 	void ReDrawLines(){
-		// GameObject[] lrs = GameObject.FindGameObjectsWithTag("LR");
 		for(int i=0; i<Sres; i++){
-			// GameObject e = lrs[i];
-			// e.transform.parent = transform;
 			LineRenderer lr = lrs[i];
 			lr.positionCount = Tres;
 			Vector3[] poss = new Vector3[lr.positionCount];
@@ -92,23 +90,15 @@ public class Grapher : MonoBehaviour{
 				GameObject p = Instantiate (pointPrefab) as GameObject;
 				float cS = ((float)((maxS-minS) * s) / Sres) + minS;
 				float cT = ((float)((maxT-minT) * t) / Tres) + minT;
-				float x = fx(cS, cT);
-				float y = fy(cS, cT);
-				float z = fu(cS, cT);
+				float x = (1/(Mathf.Sqrt(2)-fv(cS, cT)))*fx(cS, cT);
+				float y = (1/(Mathf.Sqrt(2)-fv(cS, cT)))*fy(cS, cT);
+				float z = (1/(Mathf.Sqrt(2)-fv(cS, cT)))*fu(cS, cT);
 
 				p.transform.position = new Vector3 (x, y, z);
 				p.transform.parent = transform;
-
-				// Renderer rend = p.GetComponent<Renderer> ();
-				// Material m = new Material (rend.material);
-				// m.color = new Color ((float)(s) / Sres, (float)(t) / Tres, 0.5f);
-				// m.SetColor ("_EmissionColor", m.color);
-				// p.GetComponent<Renderer> ().material = m;
-
 				points [s, t] = p;
 			}
 		}
-		Debug.Log(points[0,0].transform.position);
 		DrawLines();
 		transform.RotateAround (Vector3.zero, new Vector3 (1, 0, 0), 90);
 	}

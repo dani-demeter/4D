@@ -533,8 +533,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ULR: {fileID: 1583496042944956, guid: 28250df4985374d489421165182545e5, type: 2}
   VLR: {fileID: 1583496042944956, guid: 1cc856fe625241b49a6c750360cb38c3, type: 2}
-  Sres: 20
-  Tres: 20
+  Sres: 40
+  Tres: 40
   maxS: 7
   maxT: 7
   minS: 0
