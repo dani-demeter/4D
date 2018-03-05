@@ -5,6 +5,7 @@ namespace VRTK.Examples
     public class RightHandListener : MonoBehaviour
     {
 				public GameManagerScript gm;
+        public Grapher grapher;
         private void Start()
         {
             if (GetComponent<VRTK_ControllerEvents>() == null)
@@ -197,6 +198,7 @@ namespace VRTK.Examples
         private void DoButtonOnePressed(object sender, ControllerInteractionEventArgs e)
         {
             DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "BUTTON ONE", "pressed down", e);
+            grapher.Invert();
         }
 
         private void DoButtonOneReleased(object sender, ControllerInteractionEventArgs e)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour {
 	public GameObject graph;
+	public Grapher grapher;
 	[Space(10)]
 	public float scale = 1f;
 	private float prevScale = 1f;
@@ -60,6 +61,7 @@ public class GameManagerScript : MonoBehaviour {
 			dist = (rightHand.position-leftHand.position).magnitude;
 			scale = prevScale*dist/Odist;
 			graph.transform.localScale = new Vector3(scale, scale, scale);
+			grapher.SetScale(scale);
 			// Debug.Log(scale);
 		}
 
