@@ -538,14 +538,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ULR: {fileID: 1583496042944956, guid: 28250df4985374d489421165182545e5, type: 2}
   VLR: {fileID: 1583496042944956, guid: 1cc856fe625241b49a6c750360cb38c3, type: 2}
-  Sres: 40
-  Tres: 40
-  maxS: 7
-  maxT: 7
-  minS: 0
-  minT: 0
+  DLR: {fileID: 1583496042944956, guid: d89f7048385ca2c4e8d6a58f7c675a45, type: 2}
+  meshPrefab: {fileID: 1437525497059566, guid: 3959a81b7ec92224f81fff33815af7c3, type: 2}
   pointPrefab: {fileID: 1587370282107790, guid: a3069205c8d77c942adb2b92ca16ae4a,
     type: 2}
+  Sres: 20
+  Tres: 20
+  maxS: 3.14159
+  maxT: 3.14159
+  minS: -3.14159
+  minT: -3.14159
+  a: 0
 --- !u!4 &1670805604
 Transform:
   m_ObjectHideFlags: 0
