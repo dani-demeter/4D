@@ -6,8 +6,15 @@ namespace VRTK.Examples
     {
 				public GameManagerScript gm;
         public Grapher grapher;
+        public GameObject rightMenu;
+
+        private Vector3 rightMenuP;
+        private Quaternion rightMenuR;
+        private bool rightMenuActive = false;
         private void Start()
         {
+            rightMenuP = rightMenu.transform.position;
+            rightMenuR = rightMenu.transform.rotation;
             if (GetComponent<VRTK_ControllerEvents>() == null)
             {
                 VRTK_Logger.Error(VRTK_Logger.GetCommonMessage(VRTK_Logger.CommonMessageKeys.REQUIRED_COMPONENT_MISSING_FROM_GAMEOBJECT, "VRTK_ControllerEvents_ListenerExample", "VRTK_ControllerEvents", "the same"));
@@ -128,6 +135,17 @@ namespace VRTK.Examples
         private void DoGripPressed(object sender, ControllerInteractionEventArgs e)
         {
             DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "GRIP", "pressed", e);
+            if(!rightMenuActive){
+              rightMenuActive = true;
+              rightMenu.SetActive(true);
+              rightMenu.transform.parent = null;
+            }else{
+              rightMenu.transform.parent = transform;
+              rightMenu.transform.localPosition = rightMenuP;
+              rightMenu.transform.localRotation = rightMenuR;
+              rightMenuActive = false;
+              rightMenu.SetActive(false);
+            }
         }
 
         private void DoGripReleased(object sender, ControllerInteractionEventArgs e)
