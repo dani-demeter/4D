@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class Grapher : MonoBehaviour{
 	public GameObject ULR;
@@ -20,6 +20,7 @@ public class Grapher : MonoBehaviour{
 	public float minS;
 	public float minT;
 	[Space (20)]
+	public TextMesh AText;
 
 	private List<LineRenderer> lrs = new List<LineRenderer>();
 	private List<MeshFilter> meshes = new List<MeshFilter>();
@@ -141,6 +142,7 @@ public class Grapher : MonoBehaviour{
 			}else{
 				a -= 0.01f;
 			}
+			AText.text = "a= "+ a.ToString("F2");
 			UpdatePoints();
 		}
 	}

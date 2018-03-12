@@ -17,6 +17,18 @@ public class GameManagerScript : MonoBehaviour {
 
 	private float dist = 0f;
 	private float Odist = 0f;
+
+
+	[Space(10)]
+	public TextMesh fxT;
+	public TextMesh fyT;
+	public TextMesh fuT;
+	public TextMesh fvT;
+
+	private bool fxA = false;
+	private bool fyA = false;
+	private bool fuA = false;
+	private bool fvA = false;
 	void Start () {
 
 	}
@@ -65,5 +77,75 @@ public class GameManagerScript : MonoBehaviour {
 			// Debug.Log(scale);
 		}
 
+	}
+	public void HandleButton(int num, string fcn){
+		if(num==4){
+			deleteCursor();
+			if(fcn=="fx"){
+				fxT.text += "|";
+				fxA = true;
+				fyA = false;
+				fuA = false;
+				fvA = false;
+			}else if(fcn=="fy"){
+				fyT.text += "|";
+				fxA = false;
+				fyA = true;
+				fuA = false;
+				fvA = false;
+			}else if(fcn=="fu"){
+				fuT.text += "|";
+				fxA = false;
+				fyA = false;
+				fuA = true;
+				fvA = false;
+			}else if(fcn=="fv"){
+				fvT.text += "|";
+				fxA = false;
+				fyA = false;
+				fuA = false;
+				fvA = true;
+			}
+		}else if(num==5){
+			TextMesh active = null;
+			if(fxA){
+				active = fxT;
+			}else if(fyA){
+				active = fyT;
+			}else if(fuA){
+				active = fuT;
+			}else if(fvA){
+				active = fvT;
+			}
+			if(active!=null){
+				deleteCursor();
+				if(fcn=="s"){
+					active.text += "s|";
+				}else if(fcn=="t"){
+					active.text += "t|";
+				}else if(fcn=="del"){
+					if(active.text.Length>4){
+						deleteCursor();
+					}
+					active.text += "|";
+				}else if(fcn=="enter"){
+					fxA = false;
+					fyA = false;
+					fuA = false;
+					fvA = false;
+				}
+			}
+		}
+	}
+	void deleteCursor(){
+		if(fxA){
+			fxT.text = fxT.text.Substring(0, fxT.text.Length-1);
+		}else if(fyA){
+			fyT.text = fyT.text.Substring(0, fyT.text.Length-1);
+		}else if(fuA){
+			fuT.text = fuT.text.Substring(0, fuT.text.Length-1);
+		}else if(fvA){
+			fvT.text = fvT.text.Substring(0, fvT.text.Length-1);
+		}
 	}
 }
