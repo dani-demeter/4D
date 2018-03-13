@@ -26,6 +26,8 @@ public class ButtonScript : MonoBehaviour {
 				gm.HandleButton(4, fcn);
 			}else if(buttonNumber==5){
 				gm.HandleButton(5, fcn);
+			}else if(buttonNumber==6){
+				gm.Go();	
 			}
 		}
 	}

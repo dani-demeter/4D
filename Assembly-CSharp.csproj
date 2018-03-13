@@ -58,6 +58,16 @@
      <Compile Include="Assets\03_Scripts\LRScript.cs" />
      <Compile Include="Assets\03_Scripts\RightHandListener.cs" />
      <Compile Include="Assets\03_Scripts\RightMenuScript.cs" />
+     <Compile Include="Assets\Imports\ExpressionSolver-master\CustomFunction.cs" />
+     <Compile Include="Assets\Imports\ExpressionSolver-master\Exception.cs" />
+     <Compile Include="Assets\Imports\ExpressionSolver-master\Expression.cs" />
+     <Compile Include="Assets\Imports\ExpressionSolver-master\ExpressionSolver.cs" />
+     <Compile Include="Assets\Imports\ExpressionSolver-master\SolverTools.cs" />
+     <Compile Include="Assets\Imports\ExpressionSolver-master\Symbol.cs" />
+     <Compile Include="Assets\Imports\ExpressionSolver-master\SymbolList.cs" />
+     <Compile Include="Assets\Imports\ExpressionSolver-master\Tests\ExpressionSolverTests.cs" />
+     <Compile Include="Assets\Imports\ExpressionSolver-master\ValidityChecker.cs" />
+     <Compile Include="Assets\Imports\ExpressionSolver-master\Variable.cs" />
      <Compile Include="Assets\Imports\NewtonVR\CollisionSoundFramework\NVRCollisionSoundController.cs" />
      <Compile Include="Assets\Imports\NewtonVR\CollisionSoundFramework\NVRCollisionSoundMaterials.cs" />
      <Compile Include="Assets\Imports\NewtonVR\CollisionSoundFramework\NVRCollisionSoundObject.cs" />
@@ -766,12 +776,6 @@
  </Reference>
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>C:/Users/TAVRN/Desktop/4D/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
- </Reference>
- <Reference Include="Vuforia.UnityExtensions.Editor">
- <HintPath>C:/Program Files/Unity 2018.1.0b2/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Editor/Vuforia.UnityExtensions.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Vuforia.UnityExtensions">
- <HintPath>C:/Program Files/Unity 2018.1.0b2/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Runtime/Vuforia.UnityExtensions.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity 2018.1.0b2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

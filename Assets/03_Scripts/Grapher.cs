@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+// using System.Linq.Expressions;
+// using UnityEditor.ExpressionEvaluator;
 
 public class Grapher : MonoBehaviour{
 	public GameObject ULR;
@@ -29,25 +31,74 @@ public class Grapher : MonoBehaviour{
 	public float a = 0f;
 	private float da = 0f;
 	private float e = 2.7182818f;
+
+	private string sfx = "cos(s)";
+	private string sfy = "cos(a)*sin(s)+sin(a)*sin(t)";
+	private string sfu = "cos(t)";
+	private string sfv = "-sin(a)*sin(s)+cos(a)*sin(t)";
+
+	AK.Expression fxexp, fyexp, fuexp, fvexp;
+
+	private AK.ExpressionSolver solver = new AK.ExpressionSolver();
 	// private float a = 0f;
 	float fx (float s, float t){
 		// return (1.25f+0.5f*Mathf.Cos(s))*Mathf.Cos(t);
-		return Mathf.Cos(s);
+		// return Mathf.Cos(s);
+		// var exp = solver.SymbolicateExpression(sfx,new string[]{"s", "t", "a"});
+		fxexp.SetVariable("t",t);
+		fxexp.SetVariable("s",s);
+		fxexp.SetVariable("a",a);
+		return (float)fxexp.Evaluate();
 		// return s;
 	}
 	float fy (float s, float t){
 		// return (1.25f+0.5f*Mathf.Cos(s))*Mathf.Sin(t);
-		return Mathf.Cos(a)*Mathf.Sin(s)+Mathf.Sin(a)*Mathf.Sin(t);
+		// return Mathf.Cos(a)*Mathf.Sin(s)+Mathf.Sin(a)*Mathf.Sin(t);
+		// var exp = solver.SymbolicateExpression(sfy,new string[]{"s", "t", "a"});
+		fyexp.SetVariable("t",t);
+		fyexp.SetVariable("s",s);
+		fyexp.SetVariable("a",a);
+		return (float)fyexp.Evaluate();
 		// return Mathf.Cos(a)*s+Mathf.Sin(a)*Mathf.Exp(s)*Mathf.Cos(t);
 	}
 	float fu (float s, float t){
 		// return 0.5f*Mathf.Sin(s);
-		return Mathf.Cos(t);
+		// return Mathf.Cos(t);
+		// var exp = solver.SymbolicateExpression(sfu,new string[]{"s", "t", "a"});
+		fuexp.SetVariable("t",t);
+		fuexp.SetVariable("s",s);
+		fuexp.SetVariable("a",a);
+		return (float)fuexp.Evaluate();
 		// return Mathf.Exp(s)*Mathf.Sin(t);
 	}
 	float fv (float s, float t){
-		return -Mathf.Sin(a)*Mathf.Sin(s)+Mathf.Cos(a)*Mathf.Sin(t);
+		// return -Mathf.Sin(a)*Mathf.Sin(s)+Mathf.Cos(a)*Mathf.Sin(t);
+		// var exp = solver.SymbolicateExpression(sfv,new string[]{"s", "t", "a"});
+		fvexp.SetVariable("t",t);
+		fvexp.SetVariable("s",s);
+		fvexp.SetVariable("a",a);
+		return (float)fvexp.Evaluate();
 		// return -Mathf.Sin(a)*s+Mathf.Cos(a)*Mathf.Exp(s)*Mathf.Cos(t);
+	}
+	float cos(float i){
+		return Mathf.Cos(i);
+	}
+	float sin(float i){
+		return Mathf.Sin(i);
+	}
+	float tan(float i){
+		return Mathf.Tan(i);
+	}
+	public void Go(string sfx, string sfy, string sfu, string sfv){
+		this.sfx = sfx;
+		this.sfy = sfy;
+		this.sfu = sfu;
+		this.sfv = sfv;
+		fxexp = solver.SymbolicateExpression(this.sfx,new string[]{"s", "t", "a"});
+		fyexp = solver.SymbolicateExpression(this.sfy,new string[]{"s", "t", "a"});
+		fuexp = solver.SymbolicateExpression(this.sfu,new string[]{"s", "t", "a"});
+		fvexp = solver.SymbolicateExpression(this.sfv,new string[]{"s", "t", "a"});
+		UpdatePoints();
 	}
 	public void Invert(){
 		Vector3 o = new Vector3(0,3,0);
@@ -147,6 +198,10 @@ public class Grapher : MonoBehaviour{
 		}
 	}
 	void Start (){
+		fxexp = solver.SymbolicateExpression(sfx,new string[]{"s", "t", "a"});
+		fyexp = solver.SymbolicateExpression(sfy,new string[]{"s", "t", "a"});
+		fuexp = solver.SymbolicateExpression(sfu,new string[]{"s", "t", "a"});
+		fvexp = solver.SymbolicateExpression(sfv,new string[]{"s", "t", "a"});
 		points = new GameObject[Sres, Tres];
 		for (int s = 0; s < Sres; s++){
 			for (int t = 0; t < Tres; t++){
@@ -211,21 +266,6 @@ public class Grapher : MonoBehaviour{
 			lr.SetPositions(poss);
 			lrs.Add(lr);
 		}
-		// for(int j=0; j<Tres; j++){
-		// 	GameObject e = Instantiate(DLR) as GameObject;
-		// 	e.transform.parent = transform;
-		// 	LineRenderer lr = e.GetComponent<LineRenderer>();
-		// 	lr.positionCount = Sres;
-		// 	Vector3[] poss = new Vector3[lr.positionCount];
-		// 	for(int i=0; i<Sres; i++){
-		// 		poss[i] = points[i,(j-i+Tres)%Tres].transform.position;
-		// 	}
-		// 	lr.SetPositions(poss);
-		// 	lrs.Add(lr);
-		// }
-
-		// for(int i=0; i<Sres; i++){
-		// }
 	}
 	void CreateMeshes(){
 		// // GameObject m = Instantiate(meshPrefab) as GameObject;

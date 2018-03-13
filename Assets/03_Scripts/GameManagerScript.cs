@@ -78,6 +78,11 @@ public class GameManagerScript : MonoBehaviour {
 		}
 
 	}
+	public void Go(){
+		HandleButton(5, "enter");
+		Debug.Log(fxT.text.Substring(4,fxT.text.Length-4));
+		grapher.Go(fxT.text.Substring(4,fxT.text.Length-4), fyT.text.Substring(4,fyT.text.Length-4), fuT.text.Substring(4,fuT.text.Length-4), fvT.text.Substring(4,fvT.text.Length-4));
+	}
 	public void HandleButton(int num, string fcn){
 		if(num==4){
 			deleteCursor();
@@ -119,11 +124,7 @@ public class GameManagerScript : MonoBehaviour {
 			}
 			if(active!=null){
 				deleteCursor();
-				if(fcn=="s"){
-					active.text += "s|";
-				}else if(fcn=="t"){
-					active.text += "t|";
-				}else if(fcn=="del"){
+				if(fcn=="del"){
 					if(active.text.Length>4){
 						deleteCursor();
 					}
@@ -133,6 +134,8 @@ public class GameManagerScript : MonoBehaviour {
 					fyA = false;
 					fuA = false;
 					fvA = false;
+				}else{
+					active.text += (fcn+"|");
 				}
 			}
 		}
