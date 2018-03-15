@@ -118,7 +118,7 @@ public class Grapher : MonoBehaviour{
 	public void ChangeA(float d){
 		da = d;
 	}
-	void UpdatePoints(){
+	public void UpdatePoints(){
 		for (int s = 0; s < Sres; s++){
 			for (int t = 0; t < Tres; t++){
 				GameObject p = points[s, t];
@@ -166,17 +166,15 @@ public class Grapher : MonoBehaviour{
 			}
 			lr.SetPositions(poss);
 		}
-		// for(int j=0; j<Tres; j++){
-		// 	LineRenderer lr = lrs[j+Sres+Tres+Sres];
-		// 	lr.positionCount = Sres;
-		// 	Vector3[] poss = new Vector3[lr.positionCount];
-		// 	for(int i=0; i<Sres; i++){
-		// 		poss[i] = points[i,(j-i+Tres)%Tres].transform.localPosition;
-		// 	}
-		// 	lr.SetPositions(poss);
-		// }
-		// for(int i=0; i<Sres; i++){
-		// }
+		for(int j=0; j<Tres; j++){
+			LineRenderer lr = lrs[j+Sres+Tres+Sres];
+			lr.positionCount = Sres;
+			Vector3[] poss = new Vector3[lr.positionCount];
+			for(int i=0; i<Sres; i++){
+				poss[i] = points[i,(j-i+Tres)%Tres].transform.localPosition;
+			}
+			lr.SetPositions(poss);
+		}
 	}
 	void Update(){
 		for(int i=0; i<lrs.Count; i++){
@@ -198,6 +196,7 @@ public class Grapher : MonoBehaviour{
 		}
 	}
 	void Start (){
+		AText.text = "a= "+ a.ToString("F2");
 		fxexp = solver.SymbolicateExpression(sfx,new string[]{"s", "t", "a"});
 		fyexp = solver.SymbolicateExpression(sfy,new string[]{"s", "t", "a"});
 		fuexp = solver.SymbolicateExpression(sfu,new string[]{"s", "t", "a"});
@@ -266,6 +265,18 @@ public class Grapher : MonoBehaviour{
 			lr.SetPositions(poss);
 			lrs.Add(lr);
 		}
+		// for(int i=0; i<Sres; i++){
+		// 	GameObject e = Instantiate(DLR) as GameObject;
+		// 	e.transform.parent = transform;
+		// 	LineRenderer lr = e.GetComponent<LineRenderer>();
+		// 	lr.positionCount = Tres;
+		// 	Vector3[] poss = new Vector3[lr.positionCount];
+		// 	for(int j=0; j<Tres; j++){
+		// 		poss[j] = points[(i-j)%Tres,j].transform.position;
+		// 	}
+		// 	lr.SetPositions(poss);
+		// 	lrs.Add(lr);
+		// }
 	}
 	void CreateMeshes(){
 		// // GameObject m = Instantiate(meshPrefab) as GameObject;

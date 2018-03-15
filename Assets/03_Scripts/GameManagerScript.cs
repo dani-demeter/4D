@@ -80,7 +80,6 @@ public class GameManagerScript : MonoBehaviour {
 	}
 	public void Go(){
 		HandleButton(5, "enter");
-		Debug.Log(fxT.text.Substring(4,fxT.text.Length-4));
 		grapher.Go(fxT.text.Substring(4,fxT.text.Length-4), fyT.text.Substring(4,fyT.text.Length-4), fuT.text.Substring(4,fuT.text.Length-4), fvT.text.Substring(4,fvT.text.Length-4));
 	}
 	public void HandleButton(int num, string fcn){
