@@ -5,7 +5,7 @@ using UnityEngine;
 public class ButtonScript : MonoBehaviour {
 	public int buttonNumber;
 	public string fcn;
-	public Grapher grapher;
+	public GraphsScript graphs ;
 	public GameObject axes;
 	public GameManagerScript gm;
 
@@ -14,11 +14,11 @@ public class ButtonScript : MonoBehaviour {
 	void OnTriggerEnter(Collider c){
 		if(c.transform.root.tag == "Player"){
 			if(buttonNumber == 0){
-				grapher.ChangeA(-1f);
+				graphs.ChangeA(-1f);
 			}else if(buttonNumber == 1){
-				grapher.ChangeA(0f);
+				graphs.ChangeA(0f);
 			}else if(buttonNumber == 2){
-				grapher.ChangeA(1f);
+				graphs.ChangeA(1f);
 			}else if(buttonNumber == 3){
 				axesOn = !axesOn;
 				axes.SetActive(axesOn);
@@ -44,13 +44,13 @@ public class ButtonScript : MonoBehaviour {
 				}
 			}else if(buttonNumber==8){
 				if(fcn=="0"){
-					grapher.a = 0;
+					graphs.SetA(0);
 				}else if(fcn == "pi/4"){
-					grapher.a = 0.785f;
+					graphs.SetA(0.785f);
 				}else if(fcn == "pi/2"){
-					grapher.a = 1.57f;
+					graphs.SetA(1.57f);
 				}
-				grapher.UpdatePoints();
+				graphs.UpdatePoints();
 			}
 		}
 	}

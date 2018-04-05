@@ -54,6 +54,7 @@
      <Compile Include="Assets\03_Scripts\ButtonScript.cs" />
      <Compile Include="Assets\03_Scripts\GameManagerScript.cs" />
      <Compile Include="Assets\03_Scripts\Grapher.cs" />
+     <Compile Include="Assets\03_Scripts\GraphsScript.cs" />
      <Compile Include="Assets\03_Scripts\LeftHandListener.cs" />
      <Compile Include="Assets\03_Scripts\LRScript.cs" />
      <Compile Include="Assets\03_Scripts\RightHandListener.cs" />

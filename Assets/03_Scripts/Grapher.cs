@@ -32,10 +32,10 @@ public class Grapher : MonoBehaviour{
 	private float da = 0f;
 	private float e = 2.7182818f;
 
-	private string sfx = "cos(s)";
-	private string sfy = "cos(a)*sin(s)+sin(a)*sin(t)";
-	private string sfu = "cos(t)";
-	private string sfv = "-sin(a)*sin(s)+cos(a)*sin(t)";
+	public string sfx = "cos(s)";
+	public string sfy = "cos(a)*sin(s)+sin(a)*sin(t)";
+	public string sfu = "cos(t)";
+	public string sfv = "-sin(a)*sin(s)+cos(a)*sin(t)";
 
 	AK.Expression fxexp, fyexp, fuexp, fvexp;
 
@@ -166,12 +166,12 @@ public class Grapher : MonoBehaviour{
 			}
 			lr.SetPositions(poss);
 		}
-		for(int j=0; j<Tres; j++){
-			LineRenderer lr = lrs[j+Sres+Tres+Sres];
-			lr.positionCount = Sres;
+		for(int i=0; i<Sres; i++){
+			LineRenderer lr = lrs[i+Tres+Sres+Sres];
+			lr.positionCount = Tres;
 			Vector3[] poss = new Vector3[lr.positionCount];
-			for(int i=0; i<Sres; i++){
-				poss[i] = points[i,(j-i+Tres)%Tres].transform.localPosition;
+			for(int j=0; j<Tres; j++){
+				poss[j] = points[(i-j+Sres)%Sres,j].transform.localPosition;
 			}
 			lr.SetPositions(poss);
 		}
@@ -223,8 +223,6 @@ public class Grapher : MonoBehaviour{
 		CreateMeshes();
 		transform.RotateAround (Vector3.zero, new Vector3 (1, 0, 0), 90);
 	}
-
-
 	public void SetScale(float f){
 		scale = f;
 	}
@@ -265,18 +263,18 @@ public class Grapher : MonoBehaviour{
 			lr.SetPositions(poss);
 			lrs.Add(lr);
 		}
-		// for(int i=0; i<Sres; i++){
-		// 	GameObject e = Instantiate(DLR) as GameObject;
-		// 	e.transform.parent = transform;
-		// 	LineRenderer lr = e.GetComponent<LineRenderer>();
-		// 	lr.positionCount = Tres;
-		// 	Vector3[] poss = new Vector3[lr.positionCount];
-		// 	for(int j=0; j<Tres; j++){
-		// 		poss[j] = points[(i-j)%Tres,j].transform.position;
-		// 	}
-		// 	lr.SetPositions(poss);
-		// 	lrs.Add(lr);
-		// }
+		for(int i=0; i<Sres; i++){
+			GameObject e = Instantiate(DLR) as GameObject;
+			e.transform.parent = transform;
+			LineRenderer lr = e.GetComponent<LineRenderer>();
+			lr.positionCount = Tres;
+			Vector3[] poss = new Vector3[lr.positionCount];
+			for(int j=0; j<Tres; j++){
+				poss[j] = points[(i-j+Sres)%Sres,j].transform.position;
+			}
+			lr.SetPositions(poss);
+			lrs.Add(lr);
+		}
 	}
 	void CreateMeshes(){
 		// // GameObject m = Instantiate(meshPrefab) as GameObject;

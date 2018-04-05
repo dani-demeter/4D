@@ -1911,6 +1911,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1934103096054848
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4722146154808912}
+  - component: {fileID: 33196434437337918}
+  - component: {fileID: 23474796621740812}
+  m_Layer: 0
+  m_Name: Wand1 - Copy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1938143143003318
 GameObject:
   m_ObjectHideFlags: 1
@@ -2195,6 +2212,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4889562112891902}
+  - {fileID: 4722146154808912}
   m_Father: {fileID: 4980749999289396}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3054,6 +3072,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4839409062989028}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4722146154808912
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1934103096054848}
+  m_LocalRotation: {x: 0.49999997, y: 0.5000001, z: -0.5, w: -0.49999988}
+  m_LocalPosition: {x: -0, y: 0.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 15.000001}
+  m_Children: []
+  m_Father: {fileID: 4066391894682314}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4728286840694314
 Transform:
@@ -5336,6 +5367,41 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23474796621740812
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1934103096054848}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 97b9d93b4f045b544b5fe3a82d50e0db, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23491702226710482
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -6932,6 +6998,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529904012690580}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33196434437337918
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1934103096054848}
+  m_Mesh: {fileID: 4300000, guid: 97b9d93b4f045b544b5fe3a82d50e0db, type: 3}
 --- !u!33 &33208043527882376
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -9374,7 +9447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: 8
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114014141616163170
@@ -9390,7 +9463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 1
   fcn: 
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114017960543892064
@@ -9406,7 +9479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: 4
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114029305970249184
@@ -9422,7 +9495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: sqrt(
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114040031152830394
@@ -9438,7 +9511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: 6
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114044358032071782
@@ -9454,7 +9527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: s
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114061059567964544
@@ -9481,7 +9554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: tan(
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114087881066212686
@@ -9497,7 +9570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 8
   fcn: pi/4
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114112811040487812
@@ -9641,7 +9714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 2
   fcn: 
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114252090738959604
@@ -9657,7 +9730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: +
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114261133171950774
@@ -9684,7 +9757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 6
   fcn: enter
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114305126522440622
@@ -9700,7 +9773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: 0
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114311996413056360
@@ -9716,7 +9789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: t
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114336143124065422
@@ -9732,7 +9805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: 1
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114379255799527278
@@ -9748,7 +9821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: 7
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114383739416347424
@@ -9764,7 +9837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 8
   fcn: 0
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114402580035522098
@@ -9828,7 +9901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: )
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114516928061439806
@@ -9855,7 +9928,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: del
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114518212395782892
@@ -9871,7 +9944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 4
   fcn: fu
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114559724203601776
@@ -9887,7 +9960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 7
   fcn: torus
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114580245394323498
@@ -9903,7 +9976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: '-'
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114581593674943328
@@ -9961,7 +10034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: /
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114603343435598740
@@ -9977,7 +10050,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: 3
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114640175885197252
@@ -9993,7 +10066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: sin(
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114640824206863630
@@ -10009,7 +10082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 8
   fcn: pi/2
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114647775103321132
@@ -10048,7 +10121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 4
   fcn: fv
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114676252143660510
@@ -10137,7 +10210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: '*'
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114736619382094060
@@ -10153,7 +10226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: e^(
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114744997365577616
@@ -10180,7 +10253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 3
   fcn: 
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114779854203489796
@@ -10209,7 +10282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: (
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114796280102660900
@@ -10225,7 +10298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 7
   fcn: custom
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114807621800934326
@@ -10279,7 +10352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: 9
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114834934318328472
@@ -10307,7 +10380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 4
   fcn: fx
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114869391011721844
@@ -10323,7 +10396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: 5
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114931588965976868
@@ -10339,7 +10412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: cos(
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114933112784931884
@@ -10355,7 +10428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 4
   fcn: fy
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114941537483767202
@@ -10371,7 +10444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: enter
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114968004978349270
@@ -10387,7 +10460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: 2
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114982124724019792
@@ -10403,7 +10476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 0
   fcn: 
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}
 --- !u!114 &114996987961899120
@@ -10419,6 +10492,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonNumber: 5
   fcn: a
-  grapher: {fileID: 0}
+  graphs: {fileID: 0}
   axes: {fileID: 0}
   gm: {fileID: 0}

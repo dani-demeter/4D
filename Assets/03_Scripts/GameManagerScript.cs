@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour {
 	public GameObject graph;
-	public Grapher grapher;
+	public GraphsScript graphs;
 	[Space(10)]
 	public float scale = 1f;
 	private float prevScale = 1f;
@@ -73,14 +73,13 @@ public class GameManagerScript : MonoBehaviour {
 			dist = (rightHand.position-leftHand.position).magnitude;
 			scale = prevScale*dist/Odist;
 			graph.transform.localScale = new Vector3(scale, scale, scale);
-			grapher.SetScale(scale);
-			// Debug.Log(scale);
+			graphs.SetScale(scale);
 		}
 
 	}
 	public void Go(){
 		HandleButton(5, "enter");
-		grapher.Go(fxT.text.Substring(4,fxT.text.Length-4), fyT.text.Substring(4,fyT.text.Length-4), fuT.text.Substring(4,fuT.text.Length-4), fvT.text.Substring(4,fvT.text.Length-4));
+		graphs.Go(fxT.text.Substring(4,fxT.text.Length-4), fyT.text.Substring(4,fyT.text.Length-4), fuT.text.Substring(4,fuT.text.Length-4), fvT.text.Substring(4,fvT.text.Length-4));
 	}
 	public void HandleButton(int num, string fcn){
 		if(num==4){
