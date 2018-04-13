@@ -19,6 +19,26 @@ public class GraphsScript : MonoBehaviour {
 	void Update () {
 
 	}
+	public void toggleLines(bool b){
+		foreach(Grapher g in graphers){
+			g.toggleLines(b);
+		}
+	}
+	public void ShowOnlyOneGraph(bool b){
+		int index = 0;
+		float fa=0f;
+		foreach(Grapher g in graphers){
+			if(index>0){
+				g.gameObject.SetActive(!b);
+				if(b){
+					g.a = fa;
+				}
+			}else{
+				fa = g.a;
+			}
+			index++;
+		}
+	}
 	public void ChangeA(float d){
 		da = d;
 		foreach(Grapher g in graphers){
@@ -30,6 +50,7 @@ public class GraphsScript : MonoBehaviour {
 		foreach(Grapher g in graphers){
 			g.a = a;
 		}
+		UpdatePoints();
 	}
 	public void UpdatePoints(){
 		foreach(Grapher g in graphers){
@@ -38,7 +59,6 @@ public class GraphsScript : MonoBehaviour {
 	}
 	public void SetScale(float f){
 		foreach(Grapher g in graphers){
-			Debug.Log("scale");
 			g.SetScale(f);
 		}
 	}

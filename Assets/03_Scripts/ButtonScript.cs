@@ -8,9 +8,12 @@ public class ButtonScript : MonoBehaviour {
 	public GraphsScript graphs ;
 	public GameObject axes;
 	public GameManagerScript gm;
+	public GameObject linesParent;
+	public GameObject meshParent;
 
-	private bool axesOn=true;
-
+	private bool axesOn=false;
+	private bool linesOn = false;
+	private bool showSecGraph = false;
 	void OnTriggerEnter(Collider c){
 		if(c.transform.root.tag == "Player"){
 			if(buttonNumber == 0){
@@ -20,8 +23,16 @@ public class ButtonScript : MonoBehaviour {
 			}else if(buttonNumber == 2){
 				graphs.ChangeA(1f);
 			}else if(buttonNumber == 3){
-				axesOn = !axesOn;
-				axes.SetActive(axesOn);
+				if(fcn=="axes"){
+					axesOn = !axesOn;
+					axes.SetActive(axesOn);
+				}else if(fcn=="secGraph"){
+					showSecGraph = !showSecGraph;
+					graphs.ShowOnlyOneGraph(showSecGraph);
+				}else if(fcn=="linTri"){
+					linesOn = !linesOn;
+					graphs.toggleLines(linesOn);
+				}
 			}else if(buttonNumber == 4){
 				gm.HandleButton(4, fcn);
 			}else if(buttonNumber==5){

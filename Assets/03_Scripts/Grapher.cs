@@ -9,7 +9,8 @@ public class Grapher : MonoBehaviour{
 	public GameObject ULR;
 	public GameObject VLR;
 	public GameObject DLR;
-	public GameObject meshPrefab;
+	public GameObject mesh1Prefab;
+	public GameObject mesh2Prefab;
 	public GameObject pointPrefab;
 	[Space(20)]
 	[Range (2, 100)]
@@ -80,6 +81,10 @@ public class Grapher : MonoBehaviour{
 		return (float)fvexp.Evaluate();
 		// return -Mathf.Sin(a)*s+Mathf.Cos(a)*Mathf.Exp(s)*Mathf.Cos(t);
 	}
+	public void toggleLines(bool b){
+		transform.Find("Lines").gameObject.SetActive(b);
+		transform.Find("Meshes").gameObject.SetActive(!b);
+	}
 	float cos(float i){
 		return Mathf.Cos(i);
 	}
@@ -135,6 +140,7 @@ public class Grapher : MonoBehaviour{
 			}
 		}
 		ReDrawLines();
+		UpdateMesh();
 	}
 	void ReDrawLines(){
 		for(int i=0; i<Sres; i++){
@@ -202,6 +208,7 @@ public class Grapher : MonoBehaviour{
 		fuexp = solver.SymbolicateExpression(sfu,new string[]{"s", "t", "a"});
 		fvexp = solver.SymbolicateExpression(sfv,new string[]{"s", "t", "a"});
 		points = new GameObject[Sres, Tres];
+		Transform pointsParent = transform.Find("Points");
 		for (int s = 0; s < Sres; s++){
 			for (int t = 0; t < Tres; t++){
 				GameObject p = Instantiate (pointPrefab) as GameObject;
@@ -215,7 +222,7 @@ public class Grapher : MonoBehaviour{
 				// float z = fu(cS, cT);
 
 				p.transform.position = new Vector3 (x, y, z);
-				p.transform.parent = transform;
+				p.transform.parent = pointsParent;
 				points [s, t] = p;
 			}
 		}
@@ -227,9 +234,10 @@ public class Grapher : MonoBehaviour{
 		scale = f;
 	}
 	void DrawLines(){
+		Transform linesParent = transform.Find("Lines");
 		for(int i=0; i<Sres; i++){
 			GameObject e = Instantiate(ULR) as GameObject;
-			e.transform.parent = transform;
+			e.transform.parent = linesParent;
 			LineRenderer lr = e.GetComponent<LineRenderer>();
 			lr.positionCount = Tres;
 			Vector3[] poss = new Vector3[lr.positionCount];
@@ -241,7 +249,7 @@ public class Grapher : MonoBehaviour{
 		}
 		for(int j=0; j<Tres; j++){
 			GameObject e = Instantiate(VLR) as GameObject;
-			e.transform.parent = transform;
+			e.transform.parent = linesParent;
 			LineRenderer lr = e.GetComponent<LineRenderer>();
 			lr.positionCount = Sres;
 			Vector3[] poss = new Vector3[lr.positionCount];
@@ -253,7 +261,7 @@ public class Grapher : MonoBehaviour{
 		}
 		for(int i=0; i<Sres; i++){
 			GameObject e = Instantiate(DLR) as GameObject;
-			e.transform.parent = transform;
+			e.transform.parent = linesParent;
 			LineRenderer lr = e.GetComponent<LineRenderer>();
 			lr.positionCount = Tres;
 			Vector3[] poss = new Vector3[lr.positionCount];
@@ -265,7 +273,7 @@ public class Grapher : MonoBehaviour{
 		}
 		for(int i=0; i<Sres; i++){
 			GameObject e = Instantiate(DLR) as GameObject;
-			e.transform.parent = transform;
+			e.transform.parent = linesParent;
 			LineRenderer lr = e.GetComponent<LineRenderer>();
 			lr.positionCount = Tres;
 			Vector3[] poss = new Vector3[lr.positionCount];
@@ -277,50 +285,53 @@ public class Grapher : MonoBehaviour{
 		}
 	}
 	void CreateMeshes(){
-		// // GameObject m = Instantiate(meshPrefab) as GameObject;
-		// // Mesh mesh = new Mesh();
-		// // m.GetComponent<MeshFilter>().mesh = mesh;
-		// // Vector3[] vs = {new Vector3(0,0,0), new Vector3(0,1,0), new Vector3(1,0,0)};
-		// // mesh.vertices = vs;
-		// // int[] tri = new int[3];
-		// // m.transform.parent = transform;
-		// // tri[0] = 0;
-		// // tri[1] = 1;
-		// // tri[2] = 2;
-		// // mesh.triangles = tri;
-		// GameObject m = Instantiate(meshPrefab) as GameObject;
-		// Mesh mesh = new Mesh();
-		// m.GetComponent<MeshFilter>().mesh = mesh;
-		// Vector3[] vs = new Vector3[Sres*Tres];
-		// for(int i=0; i<Sres; i++){
-		// 	for(int j=0; j<Tres; j++){
-		// 		vs[i*Tres+j] = points[i, j].transform.position;
-		// 	}
-		// }
-		// mesh.vertices = vs;
-		// int[] tris = new int[Sres*Tres*2*3];
-		// // for(int i=0; i<Sres; i++){
-		// 	// for(int j=0; j<Tres; j++){
-		// int i=0;
-		// int j=0;
-		// 		int ind = i*Tres*6+j*6;
-		// 		tris[ind] = i*Tres+j;
-		// 		tris[ind+1] = (i+1)*Tres+j;
-		// 		tris[ind+2] = (i+1)*Tres+j+1;
-		// 		ind += 3;
-		// 		tris[ind] = i*Tres+j;
-		// 		tris[ind+1] = i*Tres+j+1;
-		// 		tris[ind+2] = (i+1)*Tres+j+1;
-		// 		// Debug.Log((i*Tres+j) + " " + ((i+1)*Tres+j)+ " " + ((i+1)*Tres+j+1));
-		// 	// }
-		// // }
-		// // Vector2[] uvs = new Vector2[vs.Length];
-    // // for (int i = 0; i < uvs.Length; i++)
-    // // {
-    // // 	uvs[i] = new Vector2(vs[i].x, vs[i].z);
-    // // }
-    // // mesh.uv = uvs;
-		// mesh.triangles = tris;
-		// m.transform.parent = transform;
+		Transform meshParent = transform.Find("Meshes");
+		GameObject m1 = Instantiate(mesh1Prefab) as GameObject;
+		Mesh mesh1 = new Mesh();
+		m1.GetComponent<MeshFilter>().mesh = mesh1;
+		Vector3[] vs = new Vector3[Sres*Tres];
+		for(int i=0; i<Sres; i++){
+			for(int j=0; j<Tres; j++){
+				vs[i*Tres+j] = points[i, j].transform.position;
+			}
+		}
+		mesh1.vertices = vs;
+		// int[] tris = new int[Tres*Sres*3]; //NOTE: works
+		int[] tris1 = new int[Sres*Tres*3];
+		for(int i=0; i<Sres; i++){
+			for(int j=0; j<Tres; j++){
+				int ind = (j+i*Tres)*3;
+				tris1[ind] = j+i*Tres;
+				tris1[ind+1] = (j+(i+1)*Tres)%(Sres*Tres);
+				tris1[ind+2] = ((j+1)%Tres+(i+1)*Tres)%(Sres*Tres);
+			}
+		}
+		mesh1.triangles = tris1;
+		m1.transform.parent = meshParent;
+		GameObject m2 = Instantiate(mesh2Prefab) as GameObject;
+		Mesh mesh2 = new Mesh();
+		m2.GetComponent<MeshFilter>().mesh = mesh2;
+		mesh2.vertices = vs;
+		int[] tris2 = new int[Sres*Tres*3];
+		for(int i=0; i<Sres; i++){
+			for(int j=0; j<Tres; j++){
+				int ind = (j+i*Tres)*3;
+				tris2[ind] = j+i*Tres;
+				tris2[ind+1] = ((j+1)%Tres+i*Tres)%(Sres*Tres);
+				tris2[ind+2] = ((j+1)%Tres+(i+1)*Tres)%(Sres*Tres);
+			}
+		}
+		mesh2.triangles = tris2;
+		m2.transform.parent = meshParent;
+	}
+	void UpdateMesh(){
+		Vector3[] vs = new Vector3[Sres*Tres];
+		for(int i=0; i<Sres; i++){
+			for(int j=0; j<Tres; j++){
+				vs[i*Tres+j] = points[i, j].transform.localPosition;
+			}
+		}
+		transform.Find("Meshes").Find("Mesh1P(Clone)").GetComponent<MeshFilter>().mesh.vertices = vs;
+		transform.Find("Meshes").Find("Mesh2P(Clone)").GetComponent<MeshFilter>().mesh.vertices = vs;
 	}
 }
