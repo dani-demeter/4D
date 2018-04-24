@@ -12,6 +12,7 @@ public class Grapher : MonoBehaviour{
 	public GameObject mesh1Prefab;
 	public GameObject mesh2Prefab;
 	public GameObject pointPrefab;
+	public GameObject emptyPrefab;
 	[Space(20)]
 	[Range (2, 100)]
 	public int Sres = 10;
@@ -25,6 +26,8 @@ public class Grapher : MonoBehaviour{
 	[Space (20)]
 	public TextMesh AText;
 
+
+	private Transform ULinesParent, VLinesParent, DLinesParent;
 	private List<LineRenderer> lrs = new List<LineRenderer>();
 	private List<MeshFilter> meshes = new List<MeshFilter>();
 	private GameObject[,] points;
@@ -32,6 +35,7 @@ public class Grapher : MonoBehaviour{
 	public float a = 0f;
 	private float da = 0f;
 	private float e = 2.7182818f;
+
 
 	public string sfx = "cos(s)";
 	public string sfy = "cos(a)*sin(s)+sin(a)*sin(t)";
@@ -126,7 +130,6 @@ public class Grapher : MonoBehaviour{
 	public void UpdatePoints(){
 		for (int s = 0; s < Sres; s++){
 			for (int t = 0; t < Tres; t++){
-				GameObject p = points[s, t];
 				float cS = ((float)((maxS-minS) * s) / Sres) + minS;
 				float cT = ((float)((maxT-minT) * t) / Tres) + minT;
 				float x = (1/(Mathf.Sqrt(2)-fv(cS, cT)))*fx(cS, cT);
@@ -135,8 +138,7 @@ public class Grapher : MonoBehaviour{
 				// float x = fx(cS, cT);
 				// float y = fy(cS, cT);
 				// float z = fu(cS, cT);
-
-				p.transform.localPosition = new Vector3 (x, y, z);
+				points[s, t].transform.localPosition = new Vector3 (x, y, z);
 			}
 		}
 		ReDrawLines();
@@ -172,15 +174,15 @@ public class Grapher : MonoBehaviour{
 			}
 			lr.SetPositions(poss);
 		}
-		for(int i=0; i<Sres; i++){
-			LineRenderer lr = lrs[i+Tres+Sres+Sres];
-			lr.positionCount = Tres;
-			Vector3[] poss = new Vector3[lr.positionCount];
-			for(int j=0; j<Tres; j++){
-				poss[j] = points[(i-j+Sres)%Sres,j].transform.localPosition;
-			}
-			lr.SetPositions(poss);
-		}
+		// for(int i=0; i<Sres; i++){
+		// 	LineRenderer lr = lrs[i+Tres+Sres+Sres];
+		// 	lr.positionCount = Tres;
+		// 	Vector3[] poss = new Vector3[lr.positionCount];
+		// 	for(int j=0; j<Tres; j++){
+		// 		poss[j] = points[(i-j+Sres)%Sres,j].transform.localPosition;
+		// 	}
+		// 	lr.SetPositions(poss);
+		// }
 	}
 	void Update(){
 		for(int i=0; i<lrs.Count; i++){
@@ -201,6 +203,21 @@ public class Grapher : MonoBehaviour{
 			UpdatePoints();
 		}
 	}
+	public void toggleUVLines(bool b){
+		if(ULinesParent!=null){
+			ULinesParent.gameObject.SetActive(b);
+		}
+		if(VLinesParent!=null){
+			VLinesParent.gameObject.SetActive(b);
+		}
+	}
+
+	public void toggleDLines(bool b){
+		if(DLinesParent!=null){
+			DLinesParent.gameObject.SetActive(b);
+		}
+	}
+
 	void Start (){
 		AText.text = "a= "+ a.ToString("F2");
 		fxexp = solver.SymbolicateExpression(sfx,new string[]{"s", "t", "a"});
@@ -229,60 +246,70 @@ public class Grapher : MonoBehaviour{
 		DrawLines();
 		CreateMeshes();
 		transform.RotateAround (Vector3.zero, new Vector3 (1, 0, 0), 90);
+		toggleLines(false);
 	}
 	public void SetScale(float f){
 		scale = f;
 	}
 	void DrawLines(){
 		Transform linesParent = transform.Find("Lines");
+		GameObject ugo = Instantiate(emptyPrefab) as GameObject;
+		GameObject vgo = Instantiate(emptyPrefab) as GameObject;
+		GameObject dgo = Instantiate(emptyPrefab) as GameObject;
+		ULinesParent = ugo.transform;
+		VLinesParent = vgo.transform;
+		DLinesParent = dgo.transform;
+		ULinesParent.parent = linesParent;
+		VLinesParent.parent = linesParent;
+		DLinesParent.parent = linesParent;
 		for(int i=0; i<Sres; i++){
 			GameObject e = Instantiate(ULR) as GameObject;
-			e.transform.parent = linesParent;
+			e.transform.parent = ULinesParent;
 			LineRenderer lr = e.GetComponent<LineRenderer>();
 			lr.positionCount = Tres;
 			Vector3[] poss = new Vector3[lr.positionCount];
 			for(int j=0; j<Tres; j++){
-				poss[j] = points[i,j].transform.position;
+				poss[j] = points[i,j].transform.localPosition;
 			}
 			lr.SetPositions(poss);
 			lrs.Add(lr);
 		}
 		for(int j=0; j<Tres; j++){
 			GameObject e = Instantiate(VLR) as GameObject;
-			e.transform.parent = linesParent;
+			e.transform.parent = VLinesParent;
 			LineRenderer lr = e.GetComponent<LineRenderer>();
 			lr.positionCount = Sres;
 			Vector3[] poss = new Vector3[lr.positionCount];
 			for(int i=0; i<Sres; i++){
-				poss[i] = points[i,j].transform.position;
+				poss[i] = points[i,j].transform.localPosition;
 			}
 			lr.SetPositions(poss);
 			lrs.Add(lr);
 		}
 		for(int i=0; i<Sres; i++){
 			GameObject e = Instantiate(DLR) as GameObject;
-			e.transform.parent = linesParent;
+			e.transform.parent = DLinesParent;
 			LineRenderer lr = e.GetComponent<LineRenderer>();
 			lr.positionCount = Tres;
 			Vector3[] poss = new Vector3[lr.positionCount];
 			for(int j=0; j<Tres; j++){
-				poss[j] = points[(i+j)%Sres,j].transform.position;
+				poss[j] = points[(i+j)%Sres,j].transform.localPosition;
 			}
 			lr.SetPositions(poss);
 			lrs.Add(lr);
 		}
-		for(int i=0; i<Sres; i++){
-			GameObject e = Instantiate(DLR) as GameObject;
-			e.transform.parent = linesParent;
-			LineRenderer lr = e.GetComponent<LineRenderer>();
-			lr.positionCount = Tres;
-			Vector3[] poss = new Vector3[lr.positionCount];
-			for(int j=0; j<Tres; j++){
-				poss[j] = points[(i-j+Sres)%Sres,j].transform.position;
-			}
-			lr.SetPositions(poss);
-			lrs.Add(lr);
-		}
+		// for(int i=0; i<Sres; i++){
+		// 	GameObject e = Instantiate(DLR) as GameObject;
+		// 	e.transform.parent = linesParent;
+		// 	LineRenderer lr = e.GetComponent<LineRenderer>();
+		// 	lr.positionCount = Tres;
+		// 	Vector3[] poss = new Vector3[lr.positionCount];
+		// 	for(int j=0; j<Tres; j++){
+		// 		poss[j] = points[(i-j+Sres)%Sres,j].transform.localPosition;
+		// 	}
+		// 	lr.SetPositions(poss);
+		// 	lrs.Add(lr);
+		// }
 	}
 	void CreateMeshes(){
 		Transform meshParent = transform.Find("Meshes");
@@ -292,7 +319,7 @@ public class Grapher : MonoBehaviour{
 		Vector3[] vs = new Vector3[Sres*Tres];
 		for(int i=0; i<Sres; i++){
 			for(int j=0; j<Tres; j++){
-				vs[i*Tres+j] = points[i, j].transform.position;
+				vs[i*Tres+j] = points[i, j].transform.localPosition;
 			}
 		}
 		mesh1.vertices = vs;
@@ -323,6 +350,22 @@ public class Grapher : MonoBehaviour{
 		}
 		mesh2.triangles = tris2;
 		m2.transform.parent = meshParent;
+
+		// GameObject m3 = Instantiate(mesh1Prefab) as GameObject;
+		// Mesh mesh3 = new Mesh();
+		// m3.GetComponent<MeshFilter>().mesh = mesh3;
+		// mesh3.vertices = vs;
+		// int[] tris3 = new int[Sres*Tres*3];
+		// for(int i=0; i<Sres; i++){
+		// 	for(int j=0; j<Tres; j++){
+		// 		int ind = (j+i*Tres)*3;
+		// 		tris3[ind] = j+i*Tres;
+		// 		tris3[ind+1] = ((j+1)%Tres+i*Tres)%(Sres*Tres);
+		// 		tris3[ind+2] = ((j+1)%Tres+(i+1)*Tres)%(Sres*Tres);
+		// 	}
+		// }
+		// mesh3.triangles = tris3;
+		// m3.transform.parent = meshParent;
 	}
 	void UpdateMesh(){
 		Vector3[] vs = new Vector3[Sres*Tres];

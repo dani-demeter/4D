@@ -13,8 +13,8 @@ namespace VRTK.Examples
         private bool leftMenuActive = false;
         private void Start()
         {
-            leftMenuP = leftMenu.transform.position;
-            leftMenuR = leftMenu.transform.rotation;
+            leftMenuP = leftMenu.transform.localPosition;
+            leftMenuR = leftMenu.transform.localRotation;
             if (GetComponent<VRTK_ControllerEvents>() == null)
             {
                 VRTK_Logger.Error(VRTK_Logger.GetCommonMessage(VRTK_Logger.CommonMessageKeys.REQUIRED_COMPONENT_MISSING_FROM_GAMEOBJECT, "VRTK_ControllerEvents_ListenerExample", "VRTK_ControllerEvents", "the same"));

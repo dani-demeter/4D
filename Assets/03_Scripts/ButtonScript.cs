@@ -14,6 +14,13 @@ public class ButtonScript : MonoBehaviour {
 	private bool axesOn=false;
 	private bool linesOn = false;
 	private bool showSecGraph = false;
+	void Start(){
+		graphs = GameObject.Find("Graphs").GetComponent<GraphsScript>();
+		axes = GameObject.Find("Axes");
+		gm = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+		linesParent = GameObject.Find("GrapherObject").transform.Find("Lines").gameObject;
+		meshParent = GameObject.Find("GrapherObject").transform.Find("Meshes").gameObject;
+	}
 	void OnTriggerEnter(Collider c){
 		if(c.transform.root.tag == "Player"){
 			if(buttonNumber == 0){
